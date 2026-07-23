@@ -84,23 +84,19 @@ export default function RootLayout({
 
         {/* Push notifications (OneSignal) — only loads once an App ID is set.
             See README for the free 5-minute setup. */}
-        {siteConfig.oneSignalAppId && (
-          <>
-            <Script
-              src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
-              strategy="afterInteractive"
-              defer
-            />
-            <Script id="onesignal-init" strategy="afterInteractive">
-              {`
-                window.OneSignalDeferred = window.OneSignalDeferred || [];
-                OneSignalDeferred.push(async function(OneSignal) {
-                  await OneSignal.init({ appId: "${siteConfig.oneSignalAppId}" });
-                });
-              `}
-            </Script>
-          </>
-        )}
+       <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "c2605a3f-a8a1-4b20-adb0-1365b57a2902",
+      safari_web_id: "web.onesignal.auto.1560ab56-4a76-4fcb-b8cd-3f5423fe1d6c",
+      notifyButton: {
+        enable: true,
+      },
+    });
+  });
+</script>
       </body>
     </html>
   );
