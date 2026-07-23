@@ -16,7 +16,11 @@ export const siteConfig = {
   phone: "+91 78973 64444",
   whatsapp: "917897364444",
   email: "info@studywellpublicschool.com", // TODO: confirm official email
-  mapEmbedUrl: "", // TODO: paste Google Maps embed src here (search "Study Well Public School Vijay Laxmi Nagar Sitapur")
+  admissionsEmail: "info@studywellpublicschool.com", // TODO: set principal/admissions office email if different from main
+  careersEmail: "info@studywellpublicschool.com", // TODO: set HR/office email if different from main
+  mapEmbedUrl: "https://www.google.com/maps?q=Study+Well+Public+School+Vijay+Laxmi+Nagar+Sitapur&output=embed", // TODO: replace with exact address once confirmed (see README section 3.5 for how)
+  oneSignalAppId: "", // TODO: paste your OneSignal App ID here to enable push notifications (see README section on Push Notifications)
+  googleAnalyticsId: "", // TODO: paste your GA4 Measurement ID here (format: G-XXXXXXXXXX) to enable Google Analytics — see README section on Analytics
 
   social: {
     facebook: "#",
@@ -33,6 +37,15 @@ export const siteConfig = {
     { label: "Events", href: "/events" },
     { label: "Careers", href: "/careers" },
     { label: "Contact", href: "/contact" }
+  ],
+
+  moreLinks: [
+    { label: "Fee Structure", href: "/fee-structure" },
+    { label: "Academic Calendar", href: "/academic-calendar" },
+    { label: "Results & Toppers", href: "/results" },
+    { label: "Notices & Circulars", href: "/notices" },
+    { label: "Alumni", href: "/alumni" },
+    { label: "FAQ", href: "/faq" }
   ],
 
   erpLinks: [
@@ -96,7 +109,171 @@ export const siteConfig = {
       name: "Class X Student",
       role: "Student"
     }
-  ]
+  ],
+
+  faqs: [
+    {
+      question: "What is the admission process?",
+      answer: "Fill out the online Admissions form on this website, or visit the school office directly. Our admissions team will contact you within 2 working days with next steps." // TODO: confirm exact process with school office
+    },
+    {
+      question: "What documents are required for admission?",
+      answer: "Typically birth certificate, previous school's transfer certificate (if applicable), and passport-size photographs. [ TODO: confirm exact document list with school office. ]"
+    },
+    {
+      question: "What is the school fee structure?",
+      answer: "Fee details vary by class and are shared during the admission process. [ TODO: add a fee structure page or PDF once the school shares figures. ]"
+    },
+    {
+      question: "Does the school provide transport?",
+      answer: "Yes, GPS-tracked bus transport is available across Sitapur. Contact the school office to check if your area is covered."
+    },
+    {
+      question: "What are the school timings?",
+      answer: "[ TODO: confirm exact timings for each level — Play Group/Primary/Middle/Secondary often differ slightly. ]"
+    },
+    {
+      question: "How can I contact my child's teacher?",
+      answer: "Parents can reach out through the school office, or once ERP/School App access is set up, message teachers directly through it."
+    }
+  ],
+
+  notices: [
+    {
+      date: "TBD",
+      category: "Admission",
+      title: "Admissions Open for 2026–27 — Play Group to Class XI"
+    },
+    {
+      date: "TBD",
+      category: "Event",
+      title: "Basant Panchami Celebration"
+    },
+    {
+      date: "TBD",
+      category: "Circular",
+      title: "Winter Vacation Schedule"
+    },
+    {
+      date: "TBD",
+      category: "Exam",
+      title: "Half-Yearly Examination Timetable"
+    }
+    // TODO: replace with real, dated circulars from the school office.
+    // Newest notices should go at the top of this list.
+  ],
+
+  alumni: [
+    {
+      name: "Alumni Name",
+      batch: "Batch of 20XX",
+      achievement: "[ TODO: add real alumni story — current role, college, or achievement ]",
+      quote: "[ TODO: add a short quote from the alumnus about their time at school ]"
+    },
+    {
+      name: "Alumni Name",
+      batch: "Batch of 20XX",
+      achievement: "[ TODO: add real alumni story ]",
+      quote: "[ TODO: add a short quote ]"
+    },
+    {
+      name: "Alumni Name",
+      batch: "Batch of 20XX",
+      achievement: "[ TODO: add real alumni story ]",
+      quote: "[ TODO: add a short quote ]"
+    }
+  ],
+
+  // ==========================================================================
+  // FEE STRUCTURE — TODO: replace all "TBD" figures with real, school-confirmed
+  // fee amounts once shared by the office. Keep the PDF at
+  // /public/documents/fee-structure.pdf in sync with this table.
+  // ==========================================================================
+  feeStructure: {
+    academicYear: "2026–27",
+    pdfUrl: "/documents/fee-structure.pdf",
+    lastUpdated: "TBD", // TODO: set the date the fee structure was last revised
+    classes: [
+      { className: "Play Group – Nursery", admissionFee: "TBD", tuitionPerMonth: "TBD", annualCharges: "TBD" },
+      { className: "LKG – UKG", admissionFee: "TBD", tuitionPerMonth: "TBD", annualCharges: "TBD" },
+      { className: "Class I – V", admissionFee: "TBD", tuitionPerMonth: "TBD", annualCharges: "TBD" },
+      { className: "Class VI – VIII", admissionFee: "TBD", tuitionPerMonth: "TBD", annualCharges: "TBD" },
+      { className: "Class IX – X", admissionFee: "TBD", tuitionPerMonth: "TBD", annualCharges: "TBD" },
+      { className: "Class XI – XII (Science)", admissionFee: "TBD", tuitionPerMonth: "TBD", annualCharges: "TBD" },
+      { className: "Class XI – XII (Commerce/Humanities)", admissionFee: "TBD", tuitionPerMonth: "TBD", annualCharges: "TBD" }
+    ],
+    includes: [
+      "Tuition fee",
+      "Library & lab charges",
+      "Smart classroom / digital learning fee",
+      "Sports & activity fee"
+    ],
+    excludes: [
+      "One-time admission fee (new admissions only)",
+      "Transport fee (route-wise, optional)",
+      "Uniform, books & stationery",
+      "Examination fee"
+    ],
+    paymentModes: ["Cash / Cheque at school office", "Online transfer / UPI", "School App payment gateway (if enabled)"],
+    notes:
+      "Fees are payable quarterly at the start of each term unless otherwise notified. Late payment may attract a fine as per school policy. [ TODO: confirm exact due dates, quarterly/monthly cycle, and late-fee policy with the school office. ]"
+  },
+
+  // ==========================================================================
+  // ACADEMIC CALENDAR — TODO: replace with the real academic-year calendar
+  // once finalized by the school office ahead of each session.
+  // ==========================================================================
+  academicCalendar: {
+    academicYear: "2026–27",
+    sessionStart: "TBD", // TODO: e.g. "1 April 2026"
+    sessionEnd: "TBD", // TODO: e.g. "31 March 2027"
+    terms: [
+      { term: "Term I", period: "TBD", exam: "Half-Yearly Examination" },
+      { term: "Term II", period: "TBD", exam: "Annual Examination" }
+    ],
+    holidays: [
+      { occasion: "Summer Vacation", date: "TBD" },
+      { occasion: "Independence Day", date: "15 August" },
+      { occasion: "Janmashtami", date: "TBD" },
+      { occasion: "Gandhi Jayanti", date: "2 October" },
+      { occasion: "Dussehra", date: "TBD" },
+      { occasion: "Diwali Break", date: "TBD" },
+      { occasion: "Winter Vacation", date: "TBD" },
+      { occasion: "Republic Day", date: "26 January" },
+      { occasion: "Basant Panchami", date: "TBD" },
+      { occasion: "Holi", date: "TBD" }
+      // TODO: replace with the confirmed holiday list for the current academic year.
+    ],
+    otherEvents: [
+      { event: "Parent-Teacher Meeting (Term I)", date: "TBD" },
+      { event: "Annual Sports Day", date: "TBD" },
+      { event: "Annual Function", date: "TBD" },
+      { event: "Parent-Teacher Meeting (Term II)", date: "TBD" }
+    ]
+  },
+
+  // ==========================================================================
+  // RESULTS & TOPPERS — TODO: replace with verified CBSE board result data and
+  // real student names/photos (with consent) once results are declared.
+  // ==========================================================================
+  results: {
+    highlights: [
+      { year: "2025–26", classLabel: "Class X", passPercentage: "TBD", topScore: "TBD" },
+      { year: "2025–26", classLabel: "Class XII", passPercentage: "TBD", topScore: "TBD" }
+    ],
+    toppers: [
+      { name: "Student Name", classLabel: "Class X", percentage: "TBD", photo: "" },
+      { name: "Student Name", classLabel: "Class X", percentage: "TBD", photo: "" },
+      { name: "Student Name", classLabel: "Class XII", percentage: "TBD", photo: "" },
+      { name: "Student Name", classLabel: "Class XII", percentage: "TBD", photo: "" }
+      // TODO: replace with real topper names, class, percentage, and photo (with signed parental consent).
+    ],
+    boardResultLinks: [
+      { label: "CBSE Class X Result", href: "https://cbseresults.nic.in/" },
+      { label: "CBSE Class XII Result", href: "https://cbseresults.nic.in/" }
+      // TODO: confirm/update official CBSE result portal links each year.
+    ]
+  }
 };
 
 export type SiteConfig = typeof siteConfig;
