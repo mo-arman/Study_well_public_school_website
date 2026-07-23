@@ -2,13 +2,17 @@
 
 import { useState } from "react";
 import PageHeader from "@/components/PageHeader";
-import { Check } from "lucide-react";
+import { Check, Loader2, AlertCircle } from "lucide-react";
+import { siteConfig } from "@/lib/siteConfig";
+import { submitFormAjax } from "@/lib/submitForm";
 
 const steps = ["Academic Year", "Student Details", "Parent Details", "Address", "Review"];
 
 export default function AdmissionsPage() {
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
   const [form, setForm] = useState({
     academicYear: "",
     classApplying: "",
@@ -27,6 +31,23 @@ export default function AdmissionsPage() {
 
   const next = () => setStep((s) => Math.min(s + 1, steps.length - 1));
   const back = () => setStep((s) => Math.max(s - 1, 0));
+
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    setError(false);
+    try {
+      await submitFormAjax(
+        siteConfig.admissionsEmail,
+        form,
+        `New Admission Application — ${siteConfig.schoolName}`
+      );
+      setSubmitted(true);
+    } catch {
+      setError(true);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const inputClass = "w-full border border-mist rounded-lg px-4 py-3 text-sm focus:border-navy outline-none";
 
@@ -138,6 +159,12 @@ export default function AdmissionsPage() {
               </div>
             )}
 
+            {error && (
+              <p className="flex items-center gap-2 text-red-600 text-sm">
+                <AlertCircle size={16} /> Something went wrong sending your application. Please try again.
+              </p>
+            )}
+
             <div className="flex justify-between pt-6">
               <button
                 onClick={back}
@@ -155,10 +182,12 @@ export default function AdmissionsPage() {
                 </button>
               ) : (
                 <button
-                  onClick={() => setSubmitted(true)}
-                  className="bg-gold text-navy-ink px-7 py-3 rounded-full text-sm font-semibold"
+                  onClick={handleSubmit}
+                  disabled={submitting}
+                  className="bg-gold text-navy-ink px-7 py-3 rounded-full text-sm font-semibold flex items-center gap-2 disabled:opacity-60"
                 >
-                  Submit Application
+                  {submitting && <Loader2 size={16} className="animate-spin" />}
+                  {submitting ? "Submitting..." : "Submit Application"}
                 </button>
               )}
             </div>
