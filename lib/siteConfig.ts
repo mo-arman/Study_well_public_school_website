@@ -19,7 +19,7 @@ export const siteConfig = {
   admissionsEmail: "info@studywellpublicschool.com", // TODO: set principal/admissions office email if different from main
   careersEmail: "info@studywellpublicschool.com", // TODO: set HR/office email if different from main
   mapEmbedUrl: "https://www.google.com/maps?q=Study+Well+Public+School+Vijay+Laxmi+Nagar+Sitapur&output=embed", // TODO: replace with exact address once confirmed (see README section 3.5 for how)
-  oneSignalAppId: "", // TODO: paste your OneSignal App ID here to enable push notifications (see README section on Push Notifications)
+  oneSignalAppId: "c2605a3f-a8a1-4b20-adb0-1365b57a2902", // TODO: paste your OneSignal App ID here to enable push notifications (see README section on Push Notifications)
   googleAnalyticsId: "", // TODO: paste your GA4 Measurement ID here (format: G-XXXXXXXXXX) to enable Google Analytics — see README section on Analytics
 
   social: {
