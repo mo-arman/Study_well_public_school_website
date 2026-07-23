@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { siteConfig } from "@/lib/siteConfig";
@@ -10,6 +11,19 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-navy">
+      {/* Campus building photo — softly blurred ambient backdrop */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/campus-building.jpg"
+          alt={`${siteConfig.schoolName} campus building`}
+          fill
+          priority
+          className="object-cover object-top scale-110 blur-[3px] sm:blur-[4px]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-navy/70" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-navy/60" />
+      </div>
+
       {/* Ambient background accents */}
       <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-sky/20 blur-3xl animate-float" />
       <div className="absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-gold/10 blur-3xl animate-float" />
@@ -82,17 +96,46 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Visual placeholder — replace with real campus photo/video slider */}
+        {/* Campus photo card with logo badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="relative aspect-[4/3] rounded-3xl glass overflow-hidden flex items-center justify-center"
+          className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/15"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-sky/30 to-navy/40" />
-          <p className="relative text-white/60 text-sm px-8 text-center">
-            [ Campus photo / video slider goes here — replace once real images are available ]
-          </p>
+          <Image
+            src="/images/campus-building.jpg"
+            alt={`${siteConfig.schoolName} campus`}
+            fill
+            priority
+            className="object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-ink/70 via-transparent to-transparent" />
+
+          {/* Floating logo + established badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
+            className="absolute bottom-5 left-5 right-5 glass rounded-2xl px-4 py-3 flex items-center gap-3"
+          >
+            <div className="relative h-11 w-11 shrink-0">
+              <Image
+                src="/images/logo.png"
+                alt={`${siteConfig.schoolName} logo`}
+                fill
+                className="object-contain"
+              />
+            </div>
+            <div className="leading-tight">
+              <p className="font-display font-semibold text-navy text-sm">
+                {siteConfig.schoolName}
+              </p>
+              <p className="text-[11px] text-navy/60">
+                Est. {siteConfig.established} · {siteConfig.city}
+              </p>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
