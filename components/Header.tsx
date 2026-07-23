@@ -3,19 +3,32 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, Phone, Search, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, Search, ChevronDown, Bell } from "lucide-react";
 import { siteConfig } from "@/lib/siteConfig";
+
+declare global {
+  interface Window {
+    OneSignal?: {
+      Notifications: { requestPermission: () => Promise<void> };
+    };
+  }
+}
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [erpOpen, setErpOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const enableNotifications = () => {
+    window.OneSignal?.Notifications.requestPermission();
+  };
 
   return (
     <header
@@ -28,7 +41,7 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-3 shrink-0">
           <div className="relative h-12 w-12 shrink-0">
             <Image
-              src="/images/logo-placeholder.png"
+              src="/images/logo.png"
               alt={`${siteConfig.schoolName} logo`}
               fill
               className="object-contain"
@@ -46,7 +59,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-6">
           {siteConfig.nav.map((item) => (
             <Link
               key={item.href}
@@ -56,6 +69,31 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
+
+          <div
+            className="relative"
+            onMouseEnter={() => setMoreOpen(true)}
+            onMouseLeave={() => setMoreOpen(false)}
+          >
+            <button className="flex items-center gap-1 text-sm font-medium text-navy-ink/80 hover:text-navy transition-colors">
+              More <ChevronDown size={14} />
+            </button>
+            {moreOpen && (
+              <div className="absolute right-0 top-full pt-2 w-48">
+                <div className="bg-white rounded-lg shadow-card border border-mist py-2">
+                  {siteConfig.moreLinks.map((l) => (
+                    <Link
+                      key={l.href}
+                      href={l.href}
+                      className="block px-4 py-2 text-sm text-navy-ink/80 hover:bg-sky-light hover:text-navy"
+                    >
+                      {l.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
 
           <div
             className="relative"
@@ -85,6 +123,14 @@ export default function Header() {
 
         {/* Right actions */}
         <div className="hidden lg:flex items-center gap-3">
+          <button
+            onClick={enableNotifications}
+            aria-label="Enable notifications for circulars and events"
+            title="Get notified about circulars & events"
+            className="h-9 w-9 rounded-full flex items-center justify-center text-navy hover:bg-sky-light transition-colors"
+          >
+            <Bell size={16} />
+          </button>
           <button
             aria-label="Search"
             className="h-9 w-9 rounded-full flex items-center justify-center text-navy hover:bg-sky-light transition-colors"
@@ -131,6 +177,16 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
+            {siteConfig.moreLinks.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className="py-3 text-navy-ink font-medium border-b border-mist"
+              >
+                {item.label}
+              </Link>
+            ))}
             {siteConfig.erpLinks.map((l) => (
               <Link
                 key={l.href}
@@ -141,6 +197,12 @@ export default function Header() {
                 {l.label}
               </Link>
             ))}
+            <button
+              onClick={enableNotifications}
+              className="py-3 text-navy-ink/70 text-sm border-b border-mist text-left flex items-center gap-2"
+            >
+              <Bell size={15} /> Enable Notifications
+            </button>
             <Link
               href="/admissions"
               onClick={() => setMobileOpen(false)}
@@ -154,3 +216,4 @@ export default function Header() {
     </header>
   );
 }
+

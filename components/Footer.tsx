@@ -11,7 +11,7 @@ export default function Footer() {
         <div>
           <div className="relative h-14 w-14 mb-4">
             <Image
-              src="/images/logo-placeholder.png"
+              src="/images/logo.png"
               alt={`${siteConfig.schoolName} logo`}
               fill
               className="object-contain"
@@ -62,6 +62,11 @@ export default function Footer() {
           </p>
           <ul className="space-y-2.5 text-sm">
             <li><Link href="/admissions" className="hover:text-gold transition-colors">Admissions</Link></li>
+            {siteConfig.moreLinks.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="hover:text-gold transition-colors">{item.label}</Link>
+              </li>
+            ))}
             <li><Link href="/mandatory-disclosure" className="hover:text-gold transition-colors">Mandatory Disclosure</Link></li>
             <li><Link href="/privacy-policy" className="hover:text-gold transition-colors">Privacy Policy</Link></li>
             <li><Link href="/terms" className="hover:text-gold transition-colors">Terms & Conditions</Link></li>
