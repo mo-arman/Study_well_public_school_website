@@ -9,14 +9,14 @@ export default function Footer() {
       <div className="golden-thread" />
       <div className="container-custom py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         <div>
-          <div className="relative h-14 w-14 mb-4">
-            <Image
-              src="/images/logo.png"
-              alt={`${siteConfig.schoolName} logo`}
-              fill
-              className="object-contain"
-            />
-          </div>
+         <div className="relative h-14 w-14 mb-4 rounded-full overflow-hidden ring-2 ring-gold/40 bg-white shadow-sm">
+  <Image
+    src="/images/logo-placeholder.png"
+    alt={`${siteConfig.schoolName} logo`}
+    fill
+    className="object-cover"
+  />
+</div>
           <p className="font-display text-xl text-white font-semibold mb-1">
             {siteConfig.schoolName}
           </p>
