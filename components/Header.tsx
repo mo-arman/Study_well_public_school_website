@@ -30,6 +30,14 @@ export default function Header() {
     window.OneSignal?.Notifications.requestPermission();
   };
 
+  // Lock background scroll while the mobile menu overlay is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
@@ -41,7 +49,7 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-3 shrink-0">
           <div className="relative h-12 w-12 shrink-0">
             <Image
-              src="/images/logo.png"
+              src="/images/logo-placeholder.png"
               alt={`${siteConfig.schoolName} logo`}
               fill
               className="object-contain"
@@ -137,7 +145,7 @@ export default function Header() {
           >
             <Search size={17} />
           </button>
-          <a
+          
             href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}
             className="h-9 w-9 rounded-full flex items-center justify-center text-navy hover:bg-sky-light transition-colors"
             aria-label="Call the school"
@@ -163,10 +171,11 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — fixed full-screen overlay with its own scroll,
+          so it always shows completely regardless of page scroll position */}
       {mobileOpen && (
-        <div className="lg:hidden border-t border-mist mt-3 bg-paper">
-          <div className="container-custom py-4 flex flex-col gap-1">
+        <div className="lg:hidden fixed inset-0 z-40 bg-paper overflow-y-auto">
+          <div className="container-custom pt-24 pb-10 flex flex-col gap-1">
             {siteConfig.nav.map((item) => (
               <Link
                 key={item.href}
@@ -216,4 +225,3 @@ export default function Header() {
     </header>
   );
 }
-
