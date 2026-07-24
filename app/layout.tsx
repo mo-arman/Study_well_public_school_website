@@ -52,8 +52,7 @@ export default function RootLayout({
         <SplashScreen />
 
         {/* Google Analytics (GA4) — only loads once a Measurement ID is set.
-            See README for setup. Respects cookie consent: gtag config runs
-            with default-denied analytics storage until CookieConsent grants it. */}
+            See README for setup. */}
         {siteConfig.googleAnalyticsId && (
           <>
             <Script
@@ -65,9 +64,6 @@ export default function RootLayout({
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('consent', 'default', {
-                  'analytics_storage': 'denied'
-                });
                 gtag('config', '${siteConfig.googleAnalyticsId}', {
                   anonymize_ip: true
                 });
@@ -82,21 +78,29 @@ export default function RootLayout({
         <WhatsAppButton />
         <CookieConsent />
 
-        {/* Push notifications (OneSignal) — only loads once an App ID is set.
-            See README for the free 5-minute setup. */}
-       <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "c2605a3f-a8a1-4b20-adb0-1365b57a2902",
-      safari_web_id: "web.onesignal.auto.1560ab56-4a76-4fcb-b8cd-3f5423fe1d6c",
-      notifyButton: {
-        enable: true,
-      },
-    });
-  });
-</script>
+        {/* Push notifications (OneSignal) — Script component (NOT raw <script>)
+            so JSX can parse the object literal inside it correctly. */}
+        {siteConfig.oneSignalAppId && (
+          <>
+            <Script
+              src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+              strategy="afterInteractive"
+              defer
+            />
+            <Script id="onesignal-init" strategy="afterInteractive">
+              {`
+                window.OneSignalDeferred = window.OneSignalDeferred || [];
+                OneSignalDeferred.push(async function(OneSignal) {
+                  await OneSignal.init({
+                    appId: "${siteConfig.oneSignalAppId}",
+                    safari_web_id: "${siteConfig.oneSignalSafariWebId}",
+                    notifyButton: { enable: true }
+                  });
+                });
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );
