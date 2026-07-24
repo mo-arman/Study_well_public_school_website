@@ -1,0 +1,35 @@
+// ERP database schema.
+//
+// Uses PostgreSQL so the SAME database works both locally and on Vercel
+// (Vercel's serverless functions cannot reliably write to a local SQLite
+// file). A free Postgres database (e.g. Neon, via Vercel Storage) takes
+// about 2 minutes to set up — see README section "ERP Backend Setup".
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  PARENT
+  TEACHER
+}
+
+// One row per ERP account. The school office creates these accounts using
+// `npm run erp:add-user` — there is no public self-signup, on purpose.
+model ErpUser {
+  id           String   @id @default(cuid())
+  name         String
+  username     String   @unique // Admission No. / Mobile No. / Employee ID
+  passwordHash String
+  role         Role
+  classSection String? // e.g. "Class VIII-B" — optional, shown on dashboard
+  active       Boolean  @default(true) // set false to disable a login without deleting it
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
