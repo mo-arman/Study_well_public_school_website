@@ -47,15 +47,15 @@ export default function Header() {
       <div className="container-custom flex items-center justify-between gap-4">
         {/* Logo + name */}
         <Link href="/" className="flex items-center gap-3 shrink-0">
-          <div className="relative h-12 w-12 shrink-0">
-            <Image
-              src="/images/logo-placeholder.png"
-              alt={`${siteConfig.schoolName} logo`}
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
+          <div className="relative h-12 w-12 shrink-0 rounded-full overflow-hidden ring-2 ring-gold/40 bg-white shadow-sm">
+  <Image
+    src="/images/logo-placeholder.png"
+    alt={`${siteConfig.schoolName} logo`}
+    fill
+    className="object-cover"
+    priority
+  />
+</div>
           <div className="leading-tight">
             <p className="font-display font-semibold text-navy text-base sm:text-lg">
               {siteConfig.schoolName}
